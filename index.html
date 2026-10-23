@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mohalla Helper</title>
+<meta name="theme-color" content="#0F5C4D">
+<meta name="description" content="Find local services and list your service in Barpeta, Assam. Assamese and English support.">
+<meta name="color-scheme" content="light">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F5F7F6;color:#14201C;font:400 15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;min-height:100vh;padding:20px 20px calc(96px + env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+h1{margin:6px 0 4px;font-size:26px;font-weight:800;letter-spacing:-.5px}h2{margin:22px 0 14px;font-size:16px}
+.mut{color:#5B6B65;font-size:13px}.row{display:flex;align-items:center;gap:12px}
+.card{background:#fff;border:1px solid #E3E8E5;border-radius:18px;padding:16px;margin-top:12px}
+.b{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:14px;border:0;font-weight:700;text-decoration:none;flex:1}
+.call{background:#0F5C4D;color:#fff}.wa{background:#E7F3EF;color:#0B4A3E}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#0B4A3E;background:#E7F3EF;border-radius:999px;padding:4px 10px;border:0}
+.tag .i{width:14px;height:14px}
+.ico{width:48px;height:48px;border-radius:16px;background:#E7F3EF;color:#0F5C4D;display:flex;align-items:center;justify-content:center;flex:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 8px}
+.tile{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:0}
+.tile span.ico{width:56px;height:56px;border-radius:18px}
+.tile{text-align:center;line-height:1.25;word-break:break-word}.tile.e .ico{background:#EEF1EF;color:#7A8782}
+.sr{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E3E8E5;border-radius:16px;padding:0 16px;height:52px;color:#5B6B65;margin-top:16px}
+.sr input{flex:1;border:0;outline:0;background:none;min-width:0}
+.sos{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid #F3C5C0;background:#FDECEA;color:#8C1D18;border-radius:18px;padding:14px 16px;margin-top:14px}
+.bk{width:44px;height:44px;border-radius:14px;border:1px solid #E3E8E5;background:#fff;display:flex;align-items:center;justify-content:center;padding:0}
+.chip{border:1px solid #E3E8E5;background:#fff;border-radius:999px;padding:9px 16px;font-weight:700;font-size:13px}.chip.on{background:#0F5C4D;color:#fff;border-color:#0F5C4D}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #E3E8E5;padding-bottom:env(safe-area-inset-bottom)}
+.tabs div{max-width:480px;margin:0 auto;height:72px;display:flex}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:0;background:none;font-size:12px;font-weight:600;color:#5B6B65}.tab.on{color:#0F5C4D}
+.num{font-size:24px;font-weight:800}.sosb{background:#B3261E;color:#fff;flex:none;width:52px;height:52px}
+.demo{background:#FFF4D6;color:#5C4400;border-radius:12px;padding:8px 12px;font-size:13px;margin-top:12px}
+.det{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid #E3E8E5}.det:first-child{border-top:0}
+.fix{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #E3E8E5;padding:14px 20px calc(20px + env(safe-area-inset-bottom))}
+.fix div{max-width:480px;margin:0 auto;display:flex;gap:10px}
+.provider-form{display:grid;gap:13px;margin-top:16px}.provider-form label{display:grid;gap:6px;font-size:13px;font-weight:700}.provider-form input,.provider-form select,.provider-form textarea{width:100%;border:1px solid #D8E1DC;border-radius:12px;background:#fff;padding:12px;font:inherit;font-weight:400;min-height:44px}.provider-form .consent{display:flex;align-items:flex-start;gap:9px;font-weight:500;line-height:1.5}.provider-form .consent input{width:18px;min-height:18px;margin-top:2px;flex:none}.resultbox{background:#F0F7F3;border:1px solid #CDE5D8;border-radius:14px;padding:14px;margin-top:14px;overflow-wrap:anywhere}.tab:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #73B9A2;outline-offset:2px}@media(min-width:700px){#app{margin-top:24px;margin-bottom:24px;border-radius:24px;box-shadow:0 12px 50px #143b2a12;background:#F5F7F6}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== SETTINGS: fill these three, nothing else needs editing ===== */
+const CONFIG = {
+  name: "Mohalla Helper", area: "Barpeta, Assam", cc: "91",
+  providersCsv: "",   // Add a published CSV link later; blank means no public listings yet
+  emergencyCsv: "",   // same, Emergency tab (optional; built-in national numbers are used if empty)
+  formUrl: "",        // link of your Google Form for new providers
+  showEmpty: true,    // true: show every category, even empty ones. false: hide categories with no provider
+  groups: [["Home services", ["Plumber", "Electrician", "Painter", "Water Tank Cleaning", "Housekeeping / Maid", "AC / Fridge / RO Repair"]], ["Health", ["Medicine Order & Delivery", "Physiotherapy", "Ambulance"]], ["Daily needs", ["Gas Agency (LPG)", "Water Can Supply", "Driver"]], ["People & learning", ["Tutor / Coaching", "Labour / Daily Wage", "Cook", "Beauty Parlour / Salon", "Photographer"]]]
+};
+/* ================================================================= */
+const IC = {phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',chat:'<path d="M4 20l1.5-4A8 8 0 1112 20a8 8 0 01-3.5-.8L4 20z"/>',
+wrench:'<path d="M14.5 6.5a4 4 0 005 5l-8.8 8.8a2.1 2.1 0 01-3-3L16.5 8.5"/>',bolt:'<path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/>',
+cross:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',pill:'<rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="M9.5 8.8l5 6.4"/>',
+flame:'<path d="M12 3c1 4 5 5 5 10a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/>',
+gear:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+book:'<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5z"/><path d="M8 7h7"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+back:'<path d="M15 5l-7 7 7 7"/>',alert:'<path d="M12 3L2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>',
+shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',home:'<path d="M4 11l8-7 8 7v9H4z"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',pin:'<path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',lang:'<path d="M4 6h9M8.5 4v2M6 6c0 4 3 7 7 8M12 6c0 3-2 6-6 8M13 20l4-9 4 9M14.5 17h5"/>',
+car:'<path d="M4 15l1.5-5A2 2 0 017.4 8.5h9.2a2 2 0 011.9 1.5L20 15v3h-3v-2H7v2H4z"/><circle cx="8" cy="12.5" r="1"/><circle cx="16" cy="12.5" r="1"/>',
+bag:'<path d="M6 8h12l1 12H5L6 8z"/><path d="M9 8a3 3 0 016 0"/>',device:'<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>',
+people:'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0112 0M16 5a3 3 0 010 6M17 14a6 6 0 014 6"/>'};
+const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dg = s => String(s || "").replace(/\D/g, "").slice(-10);
+const iconFor = c => { c = c.toLowerCase(); return /ambulance|blood/.test(c)?"alert":/medic/.test(c)?"pill":/doctor|clinic|diagnostic|dentist|physio|nurse|eye|veterin/.test(c)?"cross":/electric|cctv/.test(c)?"bolt":/gas/.test(c)?"flame":/mobile|computer|cyber|print/.test(c)?"device":/tutor|coach|training|school/.test(c)&&!/driving/.test(c)?"book":/driver|taxi|auto|wash|goods|driving/.test(c)?"car":/grocery|milk|vegetable|tiffin|bakery|water can|laundry|tailor/.test(c)?"bag":/labour|security|cook/.test(c)?"people":/plumb|mason|weld|carpent|paint/.test(c)?"wrench":/mechanic|tyre|repair|purifier/.test(c)?"gear":"spark"; };
+const EMG = [["All emergencies","112"],["Ambulance","108"],["Police","100"],["Fire","101"],["Childline","1098"],["Women helpline","181"]].map(a => ({Service:a[0],Number:a[1]}));
+const S = {p: [], e: EMG, demo: false, v: false, lang: localStorage.getItem("mh_lang") || "en", vo:false};
+
+const TXT={
+ en:{tagline:"Local help, closer to home.",search:"Search plumber, electrician, driver…",emergency:"Emergency help",emergencySub:"Ambulance, police and fire numbers",home:"Home",emergencyTab:"Emergency",add:"Join as provider",trusted:"Listings are shown only after details are checked.",noProviders:"No providers listed yet",noProvidersDesc:"We are preparing the local directory. Service providers can register below.",browse:"Browse services",verified:"Verified by phone",all:"All",verifiedOnly:"Verified only",listService:"List your service",providerIntro:"Are you a service provider in Barpeta? Add your details so local customers can find you.",providerNote:"Your details will not become public automatically. The directory owner must review and approve your listing.",name:"Full name",category:"Service category",phone:"Phone number",area:"Village / locality",details:"Services offered",hours:"Working hours",languages:"Languages spoken",consent:"I agree that my submitted business contact details may be reviewed for inclusion in Mohalla Helper.",prepare:"Prepare registration",privacy:"Privacy & consent",noMatch:"No matches found. Try another search.",demoOff:"Real listings only — sample phone numbers have been removed.",back:"Back",contact:"Contact provider",call:"Call",whatsapp:"WhatsApp",searchResults:"Search results",categories:"Categories",providers:"Providers",formLocal:"Registration preview",copy:"Copy registration details",copyDone:"Details copied",adminNote:"This preview stays on your device until a registration form or admin contact is connected.",needFields:"Please complete the required fields and consent.",emergencyCall:"Call 112 now",areaLabel:"Barpeta, Assam"},
+ as:{tagline:"আপোনাৰ ওচৰতে স্থানীয় সহায়।",search:"প্লাম্বাৰ, ইলেক্ট্ৰিচিয়ান, চালক বিচাৰক…",emergency:"জৰুৰীকালীন সহায়",emergencySub:"এম্বুলেন্স, আৰক্ষী আৰু অগ্নিনিৰ্বাপক নম্বৰ",home:"ঘৰ",emergencyTab:"জৰুৰীকালীন",add:"সেৱা প্ৰদানকাৰী হিচাপে যোগ দিয়ক",trusted:"তথ্য পৰীক্ষা কৰাৰ পিছতহে তালিকাভুক্ত কৰা হ’ব।",noProviders:"এতিয়াও কোনো সেৱা প্ৰদানকাৰী তালিকাভুক্ত হোৱা নাই",noProvidersDesc:"আমি স্থানীয় সেৱাৰ তালিকা প্ৰস্তুত কৰি আছোঁ। সেৱা প্ৰদানকাৰীয়ে তলত পঞ্জীয়ন কৰিব পাৰে।",browse:"সেৱা চাওক",verified:"ফোনযোগে পৰীক্ষিত",all:"সকলো",verifiedOnly:"কেৱল পৰীক্ষিত",listService:"আপোনাৰ সেৱা তালিকাভুক্ত কৰক",providerIntro:"আপুনি বৰপেটাৰ সেৱা প্ৰদানকাৰী নেকি? স্থানীয় গ্ৰাহকে আপোনাক বিচাৰি পাবলৈ তথ্য যোগ কৰক।",providerNote:"আপোনাৰ তথ্য স্বয়ংক্ৰিয়ভাৱে ৰাজহুৱা নহ’ব। তালিকাভুক্ত কৰাৰ আগতে পৰিচালকে পৰীক্ষা কৰিব লাগিব।",name:"সম্পূৰ্ণ নাম",category:"সেৱাৰ শ্ৰেণী",phone:"ফোন নম্বৰ",area:"গাঁও / অঞ্চল",details:"আগবঢ়োৱা সেৱা",hours:"কৰ্ম সময়",languages:"কোৱা ভাষা",consent:"মই সন্মতি দিছোঁ যে Mohalla Helper-ত অন্তৰ্ভুক্তিৰ বাবে মোৰ ব্যৱসায়িক যোগাযোগৰ তথ্য পৰীক্ষা কৰা হ’ব পাৰে।",prepare:"পঞ্জীয়নৰ তথ্য প্ৰস্তুত কৰক",privacy:"গোপনীয়তা আৰু সন্মতি",noMatch:"মিল থকা ফলাফল নাই। আন শব্দ চেষ্টা কৰক।",demoOff:"কেৱল প্ৰকৃত তালিকা — নমুনা ফোন নম্বৰ আঁতৰোৱা হৈছে।",back:"উভতি যাওক",contact:"সেৱা প্ৰদানকাৰীৰ সৈতে যোগাযোগ",call:"ফোন কৰক",whatsapp:"হোৱাটছএপ",searchResults:"সন্ধানৰ ফলাফল",categories:"শ্ৰেণীসমূহ",providers:"সেৱা প্ৰদানকাৰী",formLocal:"পঞ্জীয়নৰ পূৰ্বদৰ্শন",copy:"পঞ্জীয়নৰ তথ্য কপি কৰক",copyDone:"তথ্য কপি কৰা হৈছে",adminNote:"পঞ্জীয়ন ফৰ্ম বা প্ৰশাসকৰ যোগাযোগ সংযোগ নকৰালৈকে এই পূৰ্বদৰ্শন আপোনাৰ ডিভাইচতে থাকিব।",needFields:"অনুগ্ৰহ কৰি প্ৰয়োজনীয় তথ্য আৰু সন্মতি পূৰণ কৰক।",emergencyCall:"এতিয়াই ১১২-ত ফোন কৰক",areaLabel:"বৰপেটা, অসম"}
+};
+const T=k=>(TXT[S.lang]&&TXT[S.lang][k])||TXT.en[k]||k;
+const CAT_AS={"Home services":"ঘৰুৱা সেৱা","Health":"স্বাস্থ্য","Daily needs":"দৈনন্দিন প্ৰয়োজন","People & learning":"লোক আৰু শিক্ষা","Other":"অন্যান্য","Plumber":"প্লাম্বাৰ","Electrician":"ইলেক্ট্ৰিচিয়ান","Painter":"ৰং কৰা মিস্ত্ৰী","Water Tank Cleaning":"পানীৰ টেংকী পৰিষ্কাৰ","Housekeeping / Maid":"ঘৰ চাফা / সহায়িকা","AC / Fridge / RO Repair":"এচি / ফ্ৰিজ / আৰ অ’ মেৰামতি","Medicine Order & Delivery":"ঔষধ অৰ্ডাৰ আৰু ডেলিভাৰী","Physiotherapy":"ফিজিঅ’থেৰাপী","Ambulance":"এম্বুলেন্স","Gas Agency (LPG)":"গেছ এজেন্সী (এলপিজি)","Water Can Supply":"পানীৰ জাৰ যোগান","Driver":"চালক","Tutor / Coaching":"শিক্ষক / কোচিং","Labour / Daily Wage":"শ্ৰমিক / দৈনিক মজুৰি","Cook":"ৰান্ধনী","Beauty Parlour / Salon":"বিউটি পাৰ্লাৰ / ছেলুন","Photographer":"ফটোগ্ৰাফাৰ"};
+const CL=c=>S.lang==='as'?(CAT_AS[c]||c):c;
+const langButton=()=>`<button id="langToggle" class="tag" type="button" aria-label="Change language">${S.lang==='en'?'অসমীয়া':'English'} · ${ic('lang')}</button>`;
+function csv(t){const r=[];let row=[],c="",q=false;for(let i=0;i<t.length;i++){const h=t[i];
+ if(q){if(h=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=h}
+ else if(h=='"')q=true;else if(h==','){row.push(c);c=""}
+ else if(h=='\n'||h=='\r'){if(h=='\r'&&t[i+1]=='\n')i++;row.push(c);r.push(row);row=[];c=""}else c+=h}
+ if(c||row.length){row.push(c);r.push(row)}return r}
+function table(t,a,b){const all=csv(t),i=all.findIndex(r=>{const l=r.map(x=>x.trim().toLowerCase());return l.includes(a)&&l.includes(b)});
+ if(i<0)return[];const h=all[i].map(x=>x.trim());
+ return all.slice(i+1).filter(r=>r.some(x=>x.trim())).map(r=>Object.fromEntries(h.map((k,j)=>[k,(r[j]||"").trim()])))}
+async function get(u,key){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;const t=await r.text();try{localStorage.setItem(key,t)}catch(e){}return t}
+ catch(e){try{return localStorage.getItem(key)}catch(x){return null}}}
+async function load(){
+ if(!CONFIG.providersCsv){S.demo=false;S.p=[]}
+ else{const t=await get(CONFIG.providersCsv,"mh_p");
+  S.p=t?table(t,"name","category").filter(p=>/^active$/i.test(p.Status||"")&&p.Name&&dg(p.Phone).length>=10):[]}
+ if(CONFIG.emergencyCsv){const t=await get(CONFIG.emergencyCsv,"mh_e");
+  const e=t?table(t,"service","number").filter(x=>/^active$/i.test(x.Status||"")&&x.Service&&x.Number):[];if(e.length)S.e=e}
+ S.p.sort((a,b)=>(/^y/i.test(b.Verified)?1:0)-(/^y/i.test(a.Verified)?1:0));
+ S.v=true;render()}
+
+const ver = p => /^y/i.test(p.Verified||"");
+const tel = n => "tel:+" + CONFIG.cc + dg(n);
+const wa = n => "https://wa.me/" + CONFIG.cc + dg(n);
+const card = (p, i) => `<div class="card"><button class="row" data-go="#/p/${i}" style="border:0;background:none;padding:0;text-align:left;width:100%"><span class="ico">${ic(iconFor(p.Category))}</span><span style="flex:1"><b style="font-size:16px;display:block">${esc(p.Name)}</b><span class="mut">${esc(p["Service details"]||p.Category)}</span></span></button>
+<div class="row" style="margin:12px 0 14px;gap:8px">${ver(p)?`<span class="tag">${ic("shield")}${T("verified")}</span>`:""}<span class="mut">${esc(p["Area / Locality"])}</span></div>
+<div class="row" style="gap:10px"><a class="b call" href="${tel(p.Phone)}">${ic("phone")}Call</a><a class="b wa" href="${wa(p.Phone)}" target="_blank" rel="noopener">${ic("chat")}WhatsApp</a></div></div>`;
+const head = (t, s) => `<div class="row"><button class="bk" data-go="#/" aria-label="${T("back")}">${ic("back")}</button><div style="flex:1"><h1 style="margin:0;font-size:22px">${esc(t)}</h1>${s?`<div class="mut">${esc(s)}</div>`:""}</div>${langButton()}</div>`;
+const tabs = a => `<nav class="tabs"><div>${[["home",T("home"),"#/","h"],["alert",T("emergencyTab"),"#/e","e"],["plus",T("add"),"#/a","a"]].map(t=>`<button class="tab${t[3]==a?" on":""}" data-go="${t[2]}">${ic(t[0])}${t[1]}</button>`).join("")}</div></nav>`;
+const demo = () => S.p.length ? "" : `<div class="demo">${T("demoOff")}</div>`;
+
+const L = s => String(s || "").toLowerCase().trim();
+const cntMap = () => { const m = {}; S.p.forEach(p => { const k = L(p.Category); m[k] = (m[k] || 0) + 1 }); return m };
+const groups = () => { const known = new Set(CONFIG.groups.flatMap(g => g[1].map(L))), ex = [...new Set(S.p.map(p => p.Category).filter(c => c && !known.has(L(c))))]; return CONFIG.groups.concat(ex.length ? [["Other", ex]] : []) };
+const tileHtml = (c, m) => `<button class="tile${m[L(c)] ? "" : " e"}" data-go="#/c/${encodeURIComponent(c)}"><span class="ico">${ic(iconFor(c))}</span>${esc(CL(c))}</button>`;
+function vHome(){
+ const m = cntMap();
+ const sec = groups().map(g => { const l = g[1].filter(c => CONFIG.showEmpty || m[L(c)]); return l.length ? `<h2>${esc(CL(g[0]))}</h2><div class="grid">${l.map(c => tileHtml(c, m)).join("")}</div>` : "" }).join("");
+ return `<div class="row mut" style="color:#0F5C4D;font-weight:600;gap:6px">${ic("pin")}${esc(T("areaLabel"))}<span style="margin-left:auto">${langButton()}</span><button id="inst" class="tag" hidden>Install app</button></div>
+<h1>${esc(CONFIG.name)}</h1><div class="mut" style="font-size:14px">${T("tagline")}</div>${demo()}
+<label class="sr">${ic("search")}<input id="q" placeholder="${T("search")}" aria-label="${T("search")}" autocomplete="off"></label>
+<button class="sos" data-go="#/e">${ic("alert")}<span><b style="display:block">${T("emergency")}</b><span style="font-size:13px">${T("emergencySub")}</span></span></button>
+<div id="res"></div><div id="gr">${sec || `<h2>${T("browse")}</h2><div class="card"><b>${T("noProviders")}</b><p class="mut">${T("noProvidersDesc")}</p><button class="b call" data-go="#/a">${T("add")}</button></div>`}
+<div class="card" style="margin-top:18px"><b>${T("providerIntro")}</b><p class="mut">${T("providerNote")}</p><button class="b call" data-go="#/a" style="width:100%">${T("add")}</button></div><div class="card row" style="margin-top:12px;align-items:flex-start"><span style="color:#0F5C4D">${ic("shield")}</span><span class="mut" style="color:#3F4F49;line-height:1.45">${T("trusted")}</span></div></div>${tabs("h")}`}
+function vCat(c){const l=S.p.map((p,i)=>[p,i]).filter(x=>L(x[0].Category)===L(c)&&(!S.vo||ver(x[0])));
+ return head(CL(c),S.lang==='as'?T("areaLabel"):CONFIG.area)+`<div class="row" style="gap:8px;margin-top:16px"><button class="chip${S.vo?"":" on"}" data-vo="0">${T("all")}</button><button class="chip${S.vo?" on":""}" data-vo="1">${T("verifiedOnly")}</button></div>`+(l.map(x=>card(x[0],x[1])).join("")||`<div class="card"><p style="margin-top:0">No one has listed in this category yet. Know someone? Ask them to join.</p><button class="b call" data-go="#/a" style="width:100%">List your service</button></div>`)}
+function vProv(i){const p=S.p[i];if(!p)return head("Not found")+tabs("h");
+ const d=(n,l,v)=>v?`<div class="det"><span style="color:#0F5C4D">${ic(n)}</span><div><div class="mut" style="font-weight:600">${l}</div><div style="font-weight:600">${esc(v)}</div></div></div>`:"";
+ return head("")+`<div style="text-align:center;margin-top:8px"><span class="ico" style="width:84px;height:84px;border-radius:28px;display:inline-flex">${ic(iconFor(p.Category))}</span><h1 style="margin:14px 0 8px;font-size:24px">${esc(p.Name)}</h1>${ver(p)?`<span class="tag">${ic("shield")}Verified by phone</span>`:`<span class="mut">Not verified yet</span>`}</div>
+<div class="card" style="padding:4px 16px;margin-top:22px">${d("wrench","Service",p["Service details"]||p.Category)}${d("pin","Area",p["Area / Locality"])}${d("clock","Working hours",p["Working hours"])}${d("lang","Languages",p.Languages)}</div>
+<p class="mut" style="text-align:center">Contact details are shown with the provider's consent.</p>
+<div class="fix"><div><a class="b call" style="height:52px" href="${tel(p.Phone)}">${ic("phone")}Call now</a><a class="b wa" style="height:52px" href="${wa(p.Phone)}" target="_blank" rel="noopener">${ic("chat")}WhatsApp</a></div></div>`}
+function vEmg(){return head("Emergency")+`<a class="b" style="margin-top:16px;height:60px;background:#B3261E;color:#fff;font-size:17px;border-radius:18px" href="tel:112">${ic("phone")}Call 112 now</a>`+
+ S.e.map(x=>`<div class="card row" style="margin-top:10px;padding:12px 12px 12px 16px"><div style="flex:1"><div class="mut" style="font-weight:600;font-size:14px">${esc(x.Service)}</div><div class="num">${esc(x.Number)}</div></div><a class="b sosb" aria-label="Call ${esc(x.Service)}" href="tel:${esc(x.Number.replace(/[^\d+]/g,""))}">${ic("phone")}</a></div>`).join("")+tabs("e")}
+function vAdd(){return head(T("add"),CONFIG.area)+`<div class="card"><p style="margin-top:0">${T("providerIntro")}</p><p class="mut">${T("providerNote")}</p>${CONFIG.formUrl?`<a class="b call" href="${esc(CONFIG.formUrl)}" target="_blank" rel="noopener">${T("add")}</a>`:`<form id="providerForm" class="provider-form"><label>${T("name")} *<input name="name" required maxlength="80" placeholder="e.g. Abdul Rahman"></label><label>${T("category")} *<select name="category" required><option value="">${T("category")}</option>${groups().flatMap(g=>g[1]).map(c=>`<option value="${esc(c)}">${esc(CL(c))}</option>`).join("")}</select></label><label>${T("phone")} *<input name="phone" required inputmode="tel" pattern="[0-9+() -]{10,18}" placeholder="10-digit mobile number"></label><label>${T("area")} *<input name="area" required maxlength="100" placeholder="Village / locality"></label><label>${T("details")}<textarea name="details" rows="2" maxlength="240"></textarea></label><label>${T("hours")}<input name="hours" maxlength="80" placeholder="e.g. 9 AM – 6 PM"></label><label>${T("languages")}<input name="languages" value="Assamese" maxlength="80"></label><label class="consent"><input type="checkbox" name="consent" required> ${T("consent")}</label><button class="b call" type="submit" style="width:100%">${T("prepare")}</button></form><div id="registrationResult" hidden></div>`}</div><p class="mut"><a href="privacy.html">${T("privacy")}</a></p>${tabs("a")}`}
+
+function render(){const a=document.getElementById("app");if(!S.v){a.innerHTML=`<div class="mut" style="padding:40px 0;text-align:center">Loading...</div>`;return}
+ const p=location.hash.slice(1).split("/"),k=p[1];
+ a.innerHTML = k==="c"?vCat(decodeURIComponent(p[2]||"")):k==="p"?vProv(+p[2]):k==="e"?vEmg():k==="a"?vAdd():vHome();
+ window.scrollTo(0,0);
+ const q=document.getElementById("q");
+ if(q)q.oninput=()=>{const s=L(q.value),r=document.getElementById("res"),g=document.getElementById("gr");g.hidden=!!s;
+  const m=cntMap(),cs=groups().flatMap(x=>x[1]).filter(c=>L(c).includes(s)),ps=S.p.map((x,i)=>[x,i]).filter(x=>L(x[0].Name+" "+x[0].Category+" "+(x[0]["Service details"]||"")+" "+(x[0]["Area / Locality"]||"")).includes(s));
+  r.innerHTML=s?(cs.length?`<h2>Categories</h2><div class="grid">${cs.map(c=>tileHtml(c,m)).join("")}</div>`:"")+(ps.length?`<h2>Providers</h2>`+ps.map(x=>card(x[0],x[1])).join(""):"")+(!cs.length&&!ps.length?`<div class="card mut">No match. Try another word.</div>`:""):""};
+ if(window.dip){const b=document.getElementById("inst");if(b)b.hidden=false}}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){location.hash=g.dataset.go;return}
+ const v=e.target.closest("[data-vo]");if(v){S.vo=v.dataset.vo==="1";render();return}
+ if(e.target.closest("#langToggle")){S.lang=S.lang==="en"?"as":"en";try{localStorage.setItem("mh_lang",S.lang)}catch(e){};document.documentElement.lang=S.lang==="as"?"as":"en";render();return}
+ if(e.target.closest("#inst")&&window.dip){window.dip.prompt()}});
+document.addEventListener("submit",e=>{if(e.target.id!=="providerForm")return;e.preventDefault();const f=e.target,d=Object.fromEntries(new FormData(f).entries());if(!d.consent){alert(T("needFields"));return}const lines=["Mohalla Helper — Provider Registration",`Name: ${d.name}`,`Category: ${d.category}`,`Phone: ${d.phone}`,`Village/locality: ${d.area}`,`Services: ${d.details||"Not provided"}`,`Working hours: ${d.hours||"Not provided"}`,`Languages: ${d.languages||"Not provided"}`,"Consent: Yes"];const box=document.getElementById("registrationResult");box.hidden=false;box.className="resultbox";box.innerHTML=`<b>${T("formLocal")}</b><p class="mut">${T("adminNote")}</p><pre id="registrationText" style="white-space:pre-wrap;font:13px/1.5 system-ui">${esc(lines.join("\n"))}</pre><button type="button" class="b wa" id="copyRegistration">${T("copy")}</button>`;document.getElementById("copyRegistration").onclick=async()=>{try{await navigator.clipboard.writeText(lines.join("\n"));document.getElementById("copyRegistration").textContent=T("copyDone")}catch(err){const range=document.createRange();range.selectNodeContents(document.getElementById("registrationText"));const sel=getSelection();sel.removeAllRanges();sel.addRange(range)}};});
+addEventListener("hashchange",render);
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();window.dip=e;const b=document.getElementById("inst");if(b)b.hidden=false});
+try{navigator.serviceWorker.register("sw.js")}catch(e){}
+document.documentElement.lang=S.lang==="as"?"as":"en";render();load();
+</script>
+</body>
+</html>
