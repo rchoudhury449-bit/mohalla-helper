@@ -145,30 +145,6 @@ async function load(){
 }
 
 
-  if (CONFIG.emergencyCsv) {
-    const t = await get(CONFIG.emergencyCsv, "mh_e");
-    const e = t
-      ? table(t, "service", "number")
-          .filter(x =>
-            /^active$/i.test(x.Status || "") &&
-            x.Service &&
-            x.Number
-          )
-      : [];
-
-    if (e.length) S.e = e;
-  }
-
-  S.p.sort(
-    (a, b) =>
-      (/^y/i.test(b.Verified) ? 1 : 0) -
-      (/^y/i.test(a.Verified) ? 1 : 0)
-  );
-
-  S.v = true;
-  render();
-}
-
 const ver = p => /^y/i.test(p.Verified||"");
 const tel = n => "tel:+" + CONFIG.cc + dg(n);
 const wa = n => "https://wa.me/" + CONFIG.cc + dg(n);
