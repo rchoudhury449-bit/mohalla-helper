@@ -96,14 +96,56 @@ function table(t,a,b){const all=csv(t),i=all.findIndex(r=>{const l=r.map(x=>x.tr
  return all.slice(i+1).filter(r=>r.some(x=>x.trim())).map(r=>Object.fromEntries(h.map((k,j)=>[k,(r[j]||"").trim()])))}
 async function get(u,key){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;const t=await r.text();try{localStorage.setItem(key,t)}catch(e){}return t}
  catch(e){try{return localStorage.getItem(key)}catch(x){return null}}}
-async function load(){
- if(!CONFIG.providersCsv){S.demo=false;S.p=[]}
- else{const t=await get(CONFIG.providersCsv,"mh_p");
-  S.p=t?table(t,"name","category").filter(p=>/^active$/i.test(p.Status||"")&&p.Name&&dg(p.Phone).length>=10):[]}
- if(CONFIG.emergencyCsv){const t=await get(CONFIG.emergencyCsv,"mh_e");
-  const e=t?table(t,"service","number").filter(x=>/^active$/i.test(x.Status||"")&&x.Service&&x.Number):[];if(e.length)S.e=e}
- S.p.sort((a,b)=>(/^y/i.test(b.Verified)?1:0)-(/^y/i.test(a.Verified)?1:0));
- S.v=true;render()}
+
+async function load() {
+  if (!CONFIG.providersCsv) {
+    S.demo = false;
+    S.p = [];
+  } else {
+    const t = await get(CONFIG.providersCsv, "mh_p");
+
+    S.p = t
+      ? table(t, "provider name", "mobile number")
+          .filter(p =>
+            p["Provider Name"] &&
+            dg(p["Mobile Number"]).length >= 10
+          )
+          .map(p => ({
+            ...p,
+            Name: p["Provider Name"],
+            Phone: p["Mobile Number"],
+            Category: p["Service Catagory"],
+            "Service details": p["Service Description"],
+            "Area / Locality": p["Village/Locality"],
+            Status: "Active",
+            Verified: "No"
+          }))
+      : [];
+  }
+
+  if (CONFIG.emergencyCsv) {
+    const t = await get(CONFIG.emergencyCsv, "mh_e");
+    const e = t
+      ? table(t, "service", "number")
+          .filter(x =>
+            /^active$/i.test(x.Status || "") &&
+            x.Service &&
+            x.Number
+          )
+      : [];
+
+    if (e.length) S.e = e;
+  }
+
+  S.p.sort(
+    (a, b) =>
+      (/^y/i.test(b.Verified) ? 1 : 0) -
+      (/^y/i.test(a.Verified) ? 1 : 0)
+  );
+
+  S.v = true;
+  render();
+}
 
 const ver = p => /^y/i.test(p.Verified||"");
 const tel = n => "tel:+" + CONFIG.cc + dg(n);
