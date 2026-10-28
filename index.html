@@ -160,6 +160,15 @@ function vHome(){
 }
 function vCat(c){const l=S.p.map((p,i)=>[p,i]).filter(x=>L(x[0].Category)===L(c)&&(!S.vo||ver(x[0])));
  return head(CL(c),S.lang==='as'?T("areaLabel"):CONFIG.area)+`<div class="row" style="gap:8px;margin-top:16px"><button class="chip${S.vo?"":" on"}" data-vo="0">${T("all")}</button><button class="chip${S.vo?" on":""}" data-vo="1">${T("verifiedOnly")}</button></div>`+(l.map(x=>card(x[0],x[1])).join("")||`<div class="card"><p style="margin-top:0">No one has listed in this category yet. Know someone? Ask them to join.</p><button class="b call" data-go="#/a" style="width:100%">List your service</button></div>`)}
+
+function vAll(){
+ const m=cntMap();
+ const cats=[...new Set(S.p.map(p=>p.Category).filter(Boolean))];
+ const html=cats.map(c=>tileHtml(c,m)).join("");
+ return head("All Services",CONFIG.area)+
+ `<div class="grid" style="margin-top:16px">${html}</div>`+
+ tabs("h");
+}
 function vProv(i){const p=S.p[i];if(!p)return head("Not found")+tabs("h");
  const d=(n,l,v)=>v?`<div class="det"><span style="color:#0F5C4D">${ic(n)}</span><div><div class="mut" style="font-weight:600">${l}</div><div style="font-weight:600">${esc(v)}</div></div></div>`:"";
  return head("")+`<div style="text-align:center;margin-top:8px"><span class="ico" style="width:84px;height:84px;border-radius:28px;display:inline-flex">${ic(iconFor(p.Category))}</span><h1 style="margin:14px 0 8px;font-size:24px">${esc(p.Name)}</h1>${ver(p)?`<span class="tag">${ic("shield")}Verified by phone</span>`:`<span class="mut">Not verified yet</span>`}</div>
@@ -173,7 +182,9 @@ function vAdd(){return head(T("add"),CONFIG.area)+`<div class="card"><p style="m
 function render(){const a=document.getElementById("app");if(!S.v){a.innerHTML=`<div class="mut" style="padding:40px 0;text-align:center">Loading...</div>`;return}
  const p=location.hash.slice(1).split("/"),k=p[1];
  
+
 a.innerHTML = k==="c"?vCat(decodeURIComponent(p[2]||"")):k==="all"?vAll():k==="p"?vProv(+p[2]):k==="e"?vEmg():k==="a"?vAdd():vHome();
+
 
  window.scrollTo(0,0);
  const q=document.getElementById("q");
