@@ -151,7 +151,7 @@ function vHome(){
 </section>
  <button class="sos" data-go="#/e">${ic("alert")}<span><b style="display:block">${T("emergency")}</b><span style="font-size:12px">${T("emergencySub")}</span></span><span style="margin-left:auto">${ic("back").replace('class="i"','class="i" style="transform:rotate(180deg)"')}</span></button>
  <div id="res"></div><div id="gr">
- <div class="sectionHead"><h2>Popular Services</h2><button class="seeAll" data-go="#/c/Plumber">View all services →</button></div><div class="grid" style="margin-top:14px">${popularHtml}</div>
+ <div class="sectionHead"><h2>Popular Services</h2><button class="seeAll" data-go="#/all">View all services →</button></div><div class="grid" style="margin-top:14px">${popularHtml}</div>
  <div class="trust"><div class="trustItem"><span>${ic("shield")}</span><b>Trusted Listings</b></div><div class="trustItem"><span>${ic("pin")}</span><b>Local Services</b></div><div class="trustItem"><span>${ic("clock")}</span><b>Quick Contact</b></div></div>
  ${activeHtml?`<div class="sectionHead"><h2>Service Providers</h2><span class="mut">Active listings</span></div>${activeHtml}`:""}
  <div class="providerCta"><b>Apni service ko Mohalla Helper par list karein</b><p>${T("providerIntro")}</p><button class="b call" data-go="#/a" style="width:100%">+ ${T("add")}</button></div>
@@ -172,7 +172,9 @@ function vAdd(){return head(T("add"),CONFIG.area)+`<div class="card"><p style="m
 
 function render(){const a=document.getElementById("app");if(!S.v){a.innerHTML=`<div class="mut" style="padding:40px 0;text-align:center">Loading...</div>`;return}
  const p=location.hash.slice(1).split("/"),k=p[1];
- a.innerHTML = k==="c"?vCat(decodeURIComponent(p[2]||"")):k==="p"?vProv(+p[2]):k==="e"?vEmg():k==="a"?vAdd():vHome();
+ 
+a.innerHTML = k==="c"?vCat(decodeURIComponent(p[2]||"")):k==="all"?vAll():k==="p"?vProv(+p[2]):k==="e"?vEmg():k==="a"?vAdd():vHome();
+
  window.scrollTo(0,0);
  const q=document.getElementById("q");
  if(q)q.oninput=()=>{const s=L(q.value),r=document.getElementById("res"),g=document.getElementById("gr");g.hidden=!!s;
