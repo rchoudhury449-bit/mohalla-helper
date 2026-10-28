@@ -146,7 +146,9 @@ function vHome(){
  <div class="brand"><div class="brandMark">${ic("home")}</div><div class="brandText"><b>MOHALLA <span>HELPER</span></b><small>Apne Mohalle ke, Apne Log</small></div></div>
  ${demo()}
  <label class="sr">${ic("search")}<input id="q" placeholder="Kya dhoondh rahe ho? Electrician, plumber..." aria-label="${T("search")}" autocomplete="off"></label>
- <section class="hero"><div class="eyebrow">LOCAL HELP • CLOSER TO HOME</div><h2>Apne Mohalle ke<br>Trusted Service Providers</h2><p>Nearby, fast & reliable services — ab apne shehar mein, ek hi jagah.</p><a class="heroBtn" href="#/c/Electrician">Find a Service ${ic("back").replace('class="i"','class="i" style="transform:rotate(180deg)"')}</a></section>
+ <section class="hero"><div class="eyebrow">LOCAL HELP • CLOSER TO HOME</div><h2>Apne Mohalle ke<br>Trusted Service Providers</h2><p>Nearby, fast & reliable services — ab apne shehar mein, ek hi jagah.</p>
+<a class="heroBtn" href="#gr">Find a Service ${ic("back").replace('class="i"','class="i" style="transform:rotate(180deg)')}</a>
+</section>
  <button class="sos" data-go="#/e">${ic("alert")}<span><b style="display:block">${T("emergency")}</b><span style="font-size:12px">${T("emergencySub")}</span></span><span style="margin-left:auto">${ic("back").replace('class="i"','class="i" style="transform:rotate(180deg)"')}</span></button>
  <div id="res"></div><div id="gr">
  <div class="sectionHead"><h2>Popular Services</h2><button class="seeAll" data-go="#/c/Plumber">View all services →</button></div><div class="grid" style="margin-top:14px">${popularHtml}</div>
