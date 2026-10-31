@@ -118,6 +118,7 @@ nav button span{font-size:20px}nav button.on{color:var(--tx);font-weight:700}
       <div><em>📞</em><span data-i="w2">Call or WhatsApp the provider directly</span></div>
       <div><em>💬</em><span data-i="w3">Assamese and English support</span></div>
     </div>
+    <p class="note"><a href="privacy.html" data-i="priv" style="color:var(--lk)">Privacy &amp; consent</a></p>
   </div>
 
   <div id="page2" style="display:none">
@@ -143,48 +144,54 @@ nav button span{font-size:20px}nav button.on{color:var(--tx);font-weight:700}
 
 <script>
 /* ===== CONFIG: paste your two Google links here ===== */
-var FORM_LINK = "";  /* Google Form link where providers register */
-var SHEET_CSV = "";  /* Published CSV link of the form's response sheet */
+var FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSdmC3FktRMe-HeNPwPw5Evy0II1ndAPuL1ukpdZQAw3oqKlTw/viewform?usp=dialog";  /* Google Form link where providers register */
+var SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjBKdaPf7ED4XNDCRpgKAv8pxZNkSzVhA64QvsJ3WM6SiMXcjRaRJ7NzIZR8foUDHgnurgfHARAogd/pub?gid=1218830563&single=true&output=csv";  /* Published CSV link of the form's response sheet */
 /* ==================================================== */
 
 var lang="en",view=0,prev=0,curSvc=0,PROV=[],provState="idle";
 var S={
- en:{city:"Barpeta",state:"Assam, India",search:"Search for ‘Plumber’",hero:"Trusted helpers, right in your mohalla",heroSub:"Find a local provider and talk to them directly.",cats:"What do you need?",none:"No service found.",spot:"In the spotlight",b1:"Home repair helpers near you",b1s:"Electricians, plumbers, carpenters",b2:"Water can at your door",b2s:"Fresh drinking water delivered",b3:"Have a skill? List your service",b3s:"Get customers from your own mohalla",find:"Find now",join:"Join free",pop:"Popular services",viewp:"View providers",w1:"Local professionals from your area",w2:"Call or WhatsApp the provider directly",w3:"Assamese and English support",n1:"Home",n2:"Services",n3:"List service",lbl:"অসমীয়া",all:"All services",seeall:"See all",emg:"Emergency? Call 108 right away.",call:"Call",load:"Loading providers…",fail:"Could not load the list. Check your internet and try again.",retry:"Try again",nop:"No provider is listed in this category yet.",be1:"Do you provide this service? Register free.",reg:"Register as provider",setform:"Registration form is not connected yet",menu:"Menu",nprov:"providers",other:"Other",note:"Mohalla Helper only lists providers. Please confirm price and details with the provider yourself."},
- as:{city:"বৰপেটা",state:"অসম, ভাৰত",search:"সেৱা বিচাৰক, যেনে ‘প্লাম্বাৰ’",hero:"আপোনাৰ মহল্লাতেই বিশ্বাসী সহায়ক",heroSub:"স্থানীয় সেৱা প্ৰদানকাৰী বিচাৰি পোনপটীয়াকৈ কথা পাতক।",cats:"আপোনাৰ কি লাগে?",none:"কোনো সেৱা পোৱা নগ’ল।",spot:"বিশেষ",b1:"আপোনাৰ ওচৰৰ ঘৰ মেৰামতিৰ সহায়ক",b1s:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, কাৰপেন্টাৰ",b2:"আপোনাৰ দুৱাৰমুখলৈ পানীৰ কেন",b2s:"বিশুদ্ধ খোৱাপানী যোগান",b3:"আপোনাৰ দক্ষতা আছে? সেৱা তালিকাভুক্ত কৰক",b3s:"নিজৰ মহল্লাতে গ্ৰাহক পাওক",find:"এতিয়াই বিচাৰক",join:"বিনামূলীয়াকৈ যোগ দিয়ক",pop:"জনপ্ৰিয় সেৱা",viewp:"প্ৰদানকাৰী চাওক",w1:"আপোনাৰ এলেকাৰ স্থানীয় বিশেষজ্ঞ",w2:"প্ৰদানকাৰীক পোনপটীয়াকৈ কল বা WhatsApp কৰক",w3:"অসমীয়া আৰু ইংৰাজী সহায়",n1:"হোম",n2:"সেৱা",n3:"সেৱা যোগ কৰক",lbl:"EN",all:"সকলো সেৱা",seeall:"সকলো চাওক",emg:"জৰুৰীকালীন অৱস্থাত তৎক্ষণাত ১০৮ নম্বৰত কল কৰক।",call:"কল কৰক",load:"প্ৰদানকাৰীৰ তালিকা লোড হৈছে…",fail:"তালিকা লোড কৰিব পৰা নগ’ল। ইণ্টাৰনেট পৰীক্ষা কৰি পুনৰ চেষ্টা কৰক।",retry:"পুনৰ চেষ্টা কৰক",nop:"এই শ্ৰেণীত এতিয়াও কোনো প্ৰদানকাৰী তালিকাভুক্ত হোৱা নাই।",be1:"আপুনি এই সেৱা দিয়েনে? বিনামূলীয়াকৈ নাম লগাওক।",reg:"প্ৰদানকাৰী হিচাপে নাম লগাওক",setform:"পঞ্জীয়ন ফৰ্ম এতিয়াও সংযোগ কৰা হোৱা নাই",menu:"মেনু",nprov:"জন প্ৰদানকাৰী",other:"অন্যান্য",note:"মহল্লা হেল্পাৰে কেৱল প্ৰদানকাৰীৰ তালিকা দেখুৱায়। দাম আৰু অন্য বিৱৰণ প্ৰদানকাৰীৰ লগত নিজে নিশ্চিত কৰক।"}
+ en:{city:"Barpeta",state:"Assam, India",search:"Search for ‘Plumber’",hero:"Trusted helpers, right in your mohalla",heroSub:"Find a local provider and talk to them directly.",cats:"What do you need?",none:"No service found.",spot:"In the spotlight",b1:"Home repair helpers near you",b1s:"Electricians, plumbers, carpenters",b2:"Water can at your door",b2s:"Fresh drinking water delivered",b3:"Have a skill? List your service",b3s:"Get customers from your own mohalla",find:"Find now",join:"Join free",pop:"Popular services",viewp:"View providers",w1:"Local professionals from your area",w2:"Call or WhatsApp the provider directly",w3:"Assamese and English support",n1:"Home",n2:"Services",n3:"List service",lbl:"অসমীয়া",all:"All services",seeall:"See all",emg:"Emergency? Call 108 right away.",call:"Call",load:"Loading providers…",fail:"Could not load the list. Check your internet and try again.",retry:"Try again",nop:"No provider is listed in this category yet.",be1:"Do you provide this service? Register free.",reg:"Register as provider",setform:"Registration form is not connected yet",menu:"Menu",nprov:"providers",other:"Other",ver:"Verified",priv:"Privacy & consent",note:"Mohalla Helper only lists providers. Please confirm price and details with the provider yourself."},
+ as:{city:"বৰপেটা",state:"অসম, ভাৰত",search:"সেৱা বিচাৰক, যেনে ‘প্লাম্বাৰ’",hero:"আপোনাৰ মহল্লাতেই বিশ্বাসী সহায়ক",heroSub:"স্থানীয় সেৱা প্ৰদানকাৰী বিচাৰি পোনপটীয়াকৈ কথা পাতক।",cats:"আপোনাৰ কি লাগে?",none:"কোনো সেৱা পোৱা নগ’ল।",spot:"বিশেষ",b1:"আপোনাৰ ওচৰৰ ঘৰ মেৰামতিৰ সহায়ক",b1s:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, কাৰপেন্টাৰ",b2:"আপোনাৰ দুৱাৰমুখলৈ পানীৰ কেন",b2s:"বিশুদ্ধ খোৱাপানী যোগান",b3:"আপোনাৰ দক্ষতা আছে? সেৱা তালিকাভুক্ত কৰক",b3s:"নিজৰ মহল্লাতে গ্ৰাহক পাওক",find:"এতিয়াই বিচাৰক",join:"বিনামূলীয়াকৈ যোগ দিয়ক",pop:"জনপ্ৰিয় সেৱা",viewp:"প্ৰদানকাৰী চাওক",w1:"আপোনাৰ এলেকাৰ স্থানীয় বিশেষজ্ঞ",w2:"প্ৰদানকাৰীক পোনপটীয়াকৈ কল বা WhatsApp কৰক",w3:"অসমীয়া আৰু ইংৰাজী সহায়",n1:"হোম",n2:"সেৱা",n3:"সেৱা যোগ কৰক",lbl:"EN",all:"সকলো সেৱা",seeall:"সকলো চাওক",emg:"জৰুৰীকালীন অৱস্থাত তৎক্ষণাত ১০৮ নম্বৰত কল কৰক।",call:"কল কৰক",load:"প্ৰদানকাৰীৰ তালিকা লোড হৈছে…",fail:"তালিকা লোড কৰিব পৰা নগ’ল। ইণ্টাৰনেট পৰীক্ষা কৰি পুনৰ চেষ্টা কৰক।",retry:"পুনৰ চেষ্টা কৰক",nop:"এই শ্ৰেণীত এতিয়াও কোনো প্ৰদানকাৰী তালিকাভুক্ত হোৱা নাই।",be1:"আপুনি এই সেৱা দিয়েনে? বিনামূলীয়াকৈ নাম লগাওক।",reg:"প্ৰদানকাৰী হিচাপে নাম লগাওক",setform:"পঞ্জীয়ন ফৰ্ম এতিয়াও সংযোগ কৰা হোৱা নাই",menu:"মেনু",nprov:"জন প্ৰদানকাৰী",other:"অন্যান্য",ver:"পৰীক্ষিত",priv:"গোপনীয়তা আৰু সন্মতি",note:"মহল্লা হেল্পাৰে কেৱল প্ৰদানকাৰীৰ তালিকা দেখুৱায়। দাম আৰু অন্য বিৱৰণ প্ৰদানকাৰীৰ লগত নিজে নিশ্চিত কৰক।"}
 };
-var CATS=[["⚡","Electrician","ইলেক্ট্ৰিচিয়ান"],["🔧","Plumber","প্লাম্বাৰ"],["🚑","Ambulance","এম্বুলেন্স"],["💊","Medicine Shop","ঔষধৰ দোকান"],["🩺","Physiotherapy","ফিজিঅথেৰাপী"],["🚰","Water Can Supply","পানীৰ কেন যোগান"],["🔥","LPG Gas Agency","এলপিজি গেছ এজেন্সী"],["🧱","Carpenter / Raj Mistri","কাৰপেন্টাৰ / ৰাজমিস্ত্ৰী"],["👷","Labour / Daily Wage Worker","শ্ৰমিক / দৈনিক মজুৰ"],["🛺","Driver / E-Rickshaw / Taxi","চালক / ই-ৰিক্সা / টেক্সি"],["🛠️","AC / Fridge / Washing Machine Repair","এচি / ফ্ৰীজ / ৱাশিং মেচিন মেৰামতি"],["📱","Mobile Repair Shop","মোবাইল মেৰামতি দোকান"],["💈","Salon / Barber","ছেলুন / নাপিত"],["🧹","House Cleaning / Maid","ঘৰ চাফাই / ঘৰুৱা সহায়িকা"],["🪜","Painter","পেইণ্টাৰ"]];
+var CATS=[["⚡","Electrician","ইলেক্ট্ৰিচিয়ান"],["🔧","Plumber","প্লাম্বাৰ"],["🚑","Ambulance","এম্বুলেন্স"],["💊","Medicine Shop","ঔষধৰ দোকান"],["🩺","Physiotherapy","ফিজিঅথেৰাপী"],["🚰","Water Can Supply","পানীৰ কেন যোগান"],["🔥","LPG Gas Agency","এলপিজি গেছ এজেন্সী"],["🧱","Carpenter / Raj Mistri","কাৰপেন্টাৰ / ৰাজমিস্ত্ৰী"],["👷","Labour / Daily Wage Worker","শ্ৰমিক / দৈনিক মজুৰ"],["🛺","Driver / E-Rickshaw / Taxi","চালক / ই-ৰিক্সা / টেক্সি"],["🛠️","AC / Fridge / Washing Machine Repair","এচি / ফ্ৰীজ / ৱাশিং মেচিন মেৰামতি"],["📱","Mobile Repair Shop","মোবাইল মেৰামতি দোকান"],["💈","Salon / Barber","ছেলুন / নাপিত"],["🧹","House Cleaning / Maid","ঘৰ চাফাই / ঘৰুৱা সহায়িকা"],["🪜","Painter","পেইণ্টাৰ"],["🛢️","Water Tank Cleaning","পানীৰ টেংকী পৰিষ্কাৰ"],["📚","Tutor / Coaching","শিক্ষক / কোচিং"],["🍳","Cook","ৰান্ধনী"],["📷","Photographer","ফটোগ্ৰাফাৰ"]];
+/* names used in the existing Google Form -> index in CATS */
+var ALIAS={"housekeeping / maid":13,"ac / fridge / ro repair":10,"medicine order & delivery":3,"gas agency (lpg)":6,"driver":9,"labour / daily wage":8,"beauty parlour / salon":12};
+function catIdx(s){s=String(s||"").toLowerCase().replace(/\s+/g," ").trim();for(var k=0;k<CATS.length;k++)if(s===CATS[k][1].toLowerCase()||s===CATS[k][2].toLowerCase())return k;return ALIAS.hasOwnProperty(s)?ALIAS[s]:-1}
 var HOME=[0,1,2,3,5,7,12,13],POP=[0,1,5,13];
 function T(k){return S[lang][k]}
 function ix(){return lang==="as"?2:1}
 function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("show")},2400)}
 function csv(t){var r=[],row=[],f="",q=false,i,c;for(i=0;i<t.length;i++){c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){row.push(f);f=""}else if(c==="\n"){row.push(f);r.push(row);row=[];f=""}else if(c!=="\r")f+=c}if(f||row.length){row.push(f);r.push(row)}return r}
+function parseProv(t){
+  var rows=csv(t),hi=0,r;
+  for(r=0;r<rows.length;r++){var l=rows[r].map(function(x){return x.trim().toLowerCase()});if(l.indexOf("provider name")>-1&&l.indexOf("mobile number")>-1){hi=r;break}}
+  var h=(rows[hi]||[]).map(function(x){return x.toLowerCase()});rows=rows.slice(hi+1);
+  function col(){for(var a=0;a<arguments.length;a++)for(var k=0;k<h.length;k++)if(h[k].indexOf(arguments[a])>-1)return k;return -1}
+  var cn=col("provider name","name"),cp=col("mobile","phone","whatsapp"),cs=col("catag","categ","service"),cb2=col("description","detail","about"),ca=col("village","locality","area","mohalla"),cc=col("charge","price","fee"),cst=col("status"),cv=col("verified"),ch=col("working hours","hours");
+  function g(x,k){return k>-1?(x[k]||"").trim():""}
+  return rows.map(function(x){var st=g(x,cst).toLowerCase(),s=g(x,cs).toLowerCase().replace(/\s+/g," ");return{n:g(x,cn),p:g(x,cp).replace(/\D/g,"").slice(-10),s:s,k:catIdx(s),a:g(x,ca),b:g(x,cb2),c:g(x,cc),h:g(x,ch),v:/^y/i.test(g(x,cv)),ok:!st||st==="active"}}).filter(function(p){return p.ok&&p.n&&p.p.length===10&&p.k>-1}).sort(function(a,b){return(b.v?1:0)-(a.v?1:0)});
+}
 function loadProv(cb){
   if(!SHEET_CSV){PROV=[];provState="ok";if(cb)cb();return}
   provState="load";
-  fetch(SHEET_CSV,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){
-    var rows=csv(t),h=(rows.shift()||[]).map(function(x){return x.toLowerCase()});
-    function col(){for(var a=0;a<arguments.length;a++)for(var k=0;k<h.length;k++)if(h[k].indexOf(arguments[a])>-1)return k;return -1}
-    var cn=col("name"),cp=col("phone","mobile","whatsapp"),cs=col("service"),ca=col("area","location","mohalla"),cb2=col("about","detail","experience"),cc=col("charge","price","fee");
-    PROV=rows.map(function(r){return{n:(r[cn]||"").trim(),p:(r[cp]||"").replace(/\D/g,"").slice(-10),s:(r[cs]||"").trim().toLowerCase(),a:(r[ca]||"").trim(),b:cb2>-1?(r[cb2]||"").trim():"",c:cc>-1?(r[cc]||"").trim():""}}).filter(function(p){return p.n&&p.p.length===10&&p.s});
-    provState="ok";if(cb)cb();
-  }).catch(function(){provState="fail";if(cb)cb()});
+  fetch(SHEET_CSV,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){try{localStorage.setItem("mh_p",t)}catch(e){}return t}).catch(function(){var c=null;try{c=localStorage.getItem("mh_p")}catch(e){}if(c==null)throw 0;return c}).then(function(t){PROV=parseProv(t);provState="ok";if(cb)cb()}).catch(function(){provState="fail";if(cb)cb()});
 }
 function retry(){loadProv(renderProv);renderProv()}
 function reg(){if(!FORM_LINK){toast(T("setform"));return}window.open(FORM_LINK,"_blank","noopener")}
 var SECS=[];
 function bullets(t){return t.split(/[\n;•|]+/).map(function(x){return x.trim()}).filter(Boolean).slice(0,4)}
-function card(p){var b=bullets(p.b);return'<div class="pc"><div class="pi"><b>'+esc(p.n)+'</b>'+(p.a?'<small>📍 '+esc(p.a)+'</small>':'')+(p.c?'<div class="chg">💰 '+esc(p.c)+'</div>':'')+(b.length?'<ul>'+b.map(function(x){return'<li>'+esc(x)+'</li>'}).join("")+'</ul>':'')+'<a class="lk" href="https://wa.me/91'+p.p+'" target="_blank" rel="noopener">💬 WhatsApp</a></div><div class="ph">'+esc(p.n.charAt(0).toUpperCase())+'<a href="tel:+91'+p.p+'">📞 '+T("call")+'</a></div></div>'}
+function card(p){var b=bullets(p.b);return'<div class="pc"><div class="pi"><b>'+esc(p.n)+'</b>'+(p.v?'<small style="color:var(--wa);font-weight:700">✔ '+T("ver")+'</small>':'')+(p.a?'<small>📍 '+esc(p.a)+'</small>':'')+(p.h?'<small>🕒 '+esc(p.h)+'</small>':'')+(p.c?'<div class="chg">💰 '+esc(p.c)+'</div>':'')+(b.length?'<ul>'+b.map(function(x){return'<li>'+esc(x)+'</li>'}).join("")+'</ul>':'')+'<a class="lk" href="https://wa.me/91'+p.p+'" target="_blank" rel="noopener">💬 WhatsApp</a></div><div class="ph">'+esc(p.n.charAt(0).toUpperCase())+'<a href="tel:+91'+p.p+'">📞 '+T("call")+'</a></div></div>'}
 function renderProv(){
   if(view!==2)return;
   var c=CATS[curSvc],i=ix(),h="",sub="",en=c[1].toLowerCase(),as=c[2].toLowerCase(),mb=document.getElementById("menuBtn");
   document.getElementById("ptt").textContent=c[0]+" "+c[i];
   mb.style.display="none";SECS=[];
-  if(curSvc===2)h+='<a class="emg" style="margin-top:12px" href="tel:108">🚑 '+esc(T("emg"))+'</a>';
+  if(curSvc===2)h+='<a class="emg" style="margin-top:12px" href="tel:108">🚑 '+esc(T("emg"))+'</a><div class="wrap acts" style="margin:0 16px 12px"><a href="tel:112">📞 112</a><a href="tel:100">👮 100</a><a href="tel:101">🔥 101</a></div>';
   if(provState==="load"||provState==="idle")h+='<i class="sk"></i><i class="sk"></i><i class="sk"></i>';
   else if(provState==="fail")h+='<p class="msg">'+T("fail")+'</p><div class="wrap"><button class="go" onclick="retry()">'+T("retry")+'</button></div>';
   else{
-    var L=PROV.filter(function(p){return p.s===en||p.s===as});
+    var L=PROV.filter(function(p){return p.k===curSvc});
     sub=L.length+" "+T("nprov");
     if(!L.length)h+='<p class="msg">'+T("nop")+'<br>'+T("be1")+'</p><div class="wrap"><button class="go" onclick="reg()">'+T("reg")+'</button></div>';
     else{
