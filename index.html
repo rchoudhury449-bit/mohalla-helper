@@ -51,6 +51,15 @@ nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(100%,4
 nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--mut)}
 nav button span{font-size:20px}
 nav button.on{color:var(--tx);font-weight:700}
+#page2 .ptitle{display:flex;align-items:center;gap:4px;margin:18px 8px 6px}
+#page2 .ptitle h3{margin:0 0 0 0}
+#page2 .ptitle button{font-size:30px;line-height:1;padding:4px 12px}
+.li{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:0 16px 10px;padding:12px 14px;background:var(--card);border-radius:14px;text-align:left;box-shadow:0 1px 2px rgba(0,0,0,.06);font-size:15px}
+.li:active{transform:scale(.98)}
+.li .num{width:22px;color:var(--mut);font-size:13px;font-weight:600}
+.li em{font-style:normal;font-size:24px;width:44px;height:44px;border-radius:12px;background:var(--chip);display:grid;place-items:center;flex:none}
+.li span{flex:1;line-height:1.3}
+.li u{text-decoration:none;color:var(--mut);font-size:22px}
 #bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}
 #sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,480px);background:var(--card);border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:92vh;overflow:auto;z-index:41;display:none}
 #sheet h4{margin:0 0 12px;font-size:18px}
@@ -73,16 +82,16 @@ label{display:block;font-size:12.5px;color:var(--mut);margin:10px 0 4px}
     <div class="search">🔍<input id="q" data-ph="search" placeholder="Search for ‘Plumber’" oninput="filter()"></div>
   </header>
 
+  <div id="home">
   <div class="hero"><h2 data-i="hero">Trusted helpers, right in your mohalla</h2><p data-i="heroSub">Electrician, plumber, cleaning and more – at your door.</p><i>🏠</i></div>
 
-  <h3 id="svc" data-i="cats">What do you need?</h3>
+  <h3 data-i="cats">What do you need?</h3>
   <div class="grid" id="grid"></div>
-  <p class="empty" id="empty" data-i="none">No service found.</p>
 
   <h3 data-i="spot">In the spotlight</h3>
   <div class="scroll">
     <div class="ban b1"><div><b data-i="b1">Home repairs at affordable prices</b><small data-i="b1s">Electricians, plumbers, carpenters</small></div><button data-i="book" onclick="openSheet('book',0)">Book now</button></div>
-    <div class="ban b2"><div><b data-i="b2">Clean tank, healthy home</b><small data-i="b2s">Professional water tank cleaning</small></div><button data-i="book" onclick="openSheet('book',3)">Book now</button></div>
+    <div class="ban b2"><div><b data-i="b2">Water can at your door</b><small data-i="b2s">Fresh drinking water delivered</small></div><button data-i="book" onclick="openSheet('book',5)">Book now</button></div>
     <div class="ban b3"><div><b data-i="b3">Have a skill? List your service</b><small data-i="b3s">Get customers from your own mohalla</small></div><button data-i="join" onclick="openSheet('join')">Join free</button></div>
   </div>
 
@@ -93,6 +102,12 @@ label{display:block;font-size:12.5px;color:var(--mut);margin:10px 0 4px}
     <div><em>✅</em><span data-i="w1">Local professionals from your area</span></div>
     <div><em>🕒</em><span data-i="w2">Book for today or tomorrow</span></div>
     <div><em>💬</em><span data-i="w3">Assamese and English support</span></div>
+  </div>
+  </div>
+  <div id="page2" style="display:none">
+    <div class="ptitle"><button onclick="go(0)" aria-label="Back">‹</button><h3 data-i="all">All services</h3></div>
+    <div id="list"></div>
+    <p class="empty" id="empty" data-i="none">No service found.</p>
   </div>
 </div>
 
@@ -114,13 +129,15 @@ var CALL_NUMBER = "+917002017656"; /* number shown on the Call button */
 
 var lang = "en";
 var S = {
- en:{city:"Barpeta",state:"Assam, India",search:"Search for ‘Plumber’",hero:"Trusted helpers, right in your mohalla",heroSub:"Electrician, plumber, cleaning and more – at your door.",cats:"What do you need?",none:"No service found.",spot:"In the spotlight",b1:"Home repairs at affordable prices",b1s:"Electricians, plumbers, carpenters",b2:"Clean tank, healthy home",b2s:"Professional water tank cleaning",b3:"Have a skill? List your service",b3s:"Get customers from your own mohalla",book:"Book now",join:"Join free",pop:"Popular services",w1:"Local professionals from your area",w2:"Book for today or tomorrow",w3:"Assamese and English support",n1:"Home",n2:"Services",n3:"List service",n4:"Help",lbl:"অসমীয়া",from:"Starts at",visit:"Price after visit",name:"Your name",phone:"Phone number",addr:"Address / mohalla",when:"When do you need it?",today:"Today",tomorrow:"Tomorrow",anytime:"Any time",details:"More details (optional)",send:"Book on WhatsApp",bookT:"Book",joinT:"List your service",skill:"Which service do you provide?",area:"Your area",joinSend:"Send request on WhatsApp",helpT:"Help",call:"Call us",wa:"Message on WhatsApp",req:"Please enter your name and a 10-digit phone number",setwa:"WhatsApp number is not set yet",close:"Close"},
- as:{city:"বৰপেটা",state:"অসম, ভাৰত",search:"সেৱা বিচাৰক, যেনে ‘প্লাম্বাৰ’",hero:"আপোনাৰ মহল্লাতেই বিশ্বাসী সহায়ক",heroSub:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, চাফাই আৰু অধিক – আপোনাৰ দুৱাৰমুখতে।",cats:"আপোনাৰ কি লাগে?",none:"কোনো সেৱা পোৱা নগ’ল।",spot:"বিশেষ",b1:"সাশ্ৰয়ী মূল্যত ঘৰৰ মেৰামতি",b1s:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, কাৰপেন্টাৰ",b2:"পৰিষ্কাৰ টেংকী, সুস্থ ঘৰ",b2s:"পানীৰ টেংকীৰ পেছাদাৰী চাফাই",b3:"আপোনাৰ দক্ষতা আছে? সেৱা তালিকাভুক্ত কৰক",b3s:"নিজৰ মহল্লাতে গ্ৰাহক পাওক",book:"বুক কৰক",join:"বিনামূলীয়াকৈ যোগ দিয়ক",pop:"জনপ্ৰিয় সেৱা",w1:"আপোনাৰ এলেকাৰ স্থানীয় বিশেষজ্ঞ",w2:"আজি বা কাইলৈৰ বাবে বুক কৰক",w3:"অসমীয়া আৰু ইংৰাজী সহায়",n1:"হোম",n2:"সেৱা",n3:"সেৱা যোগ কৰক",n4:"সহায়",lbl:"EN",from:"আৰম্ভণি",visit:"চাই যোৱাৰ পিছত দাম",name:"আপোনাৰ নাম",phone:"ফোন নম্বৰ",addr:"ঠিকনা / মহল্লা",when:"কেতিয়া লাগে?",today:"আজি",tomorrow:"কাইলৈ",anytime:"যিকোনো সময়",details:"অতিৰিক্ত তথ্য (ঐচ্ছিক)",send:"WhatsApp ত বুক কৰক",bookT:"বুক কৰক",joinT:"আপোনাৰ সেৱা তালিকাভুক্ত কৰক",skill:"আপুনি কি সেৱা দিয়ে?",area:"আপোনাৰ এলেকা",joinSend:"WhatsApp ত অনুৰোধ পঠিয়াওক",helpT:"সহায়",call:"কল কৰক",wa:"WhatsApp ত মেছেজ কৰক",req:"অনুগ্ৰহ কৰি নাম আৰু ১০ আখৰৰ ফোন নম্বৰ দিয়ক",setwa:"WhatsApp নম্বৰ এতিয়াও দিয়া হোৱা নাই",close:"বন্ধ কৰক"}
+ en:{city:"Barpeta",state:"Assam, India",search:"Search for ‘Plumber’",hero:"Trusted helpers, right in your mohalla",heroSub:"Electrician, plumber, cleaning and more – at your door.",cats:"What do you need?",none:"No service found.",spot:"In the spotlight",b1:"Home repairs at affordable prices",b1s:"Electricians, plumbers, carpenters",b2:"Water can at your door",b2s:"Fresh drinking water delivered",b3:"Have a skill? List your service",b3s:"Get customers from your own mohalla",book:"Book now",join:"Join free",pop:"Popular services",w1:"Local professionals from your area",w2:"Book for today or tomorrow",w3:"Assamese and English support",n1:"Home",n2:"Services",n3:"List service",n4:"Help",lbl:"অসমীয়া",from:"Starts at",visit:"Price on request",name:"Your name",phone:"Phone number",addr:"Address / mohalla",when:"When do you need it?",today:"Today",tomorrow:"Tomorrow",anytime:"Any time",details:"More details (optional)",send:"Book on WhatsApp",bookT:"Book",joinT:"List your service",skill:"Which service do you provide?",area:"Your area",joinSend:"Send request on WhatsApp",helpT:"Help",call:"Call us",wa:"Message on WhatsApp",req:"Please enter your name and a 10-digit phone number",setwa:"WhatsApp number is not set yet",close:"Close",all:"All services",seeall:"See all",emg:"Emergency? Call 108 right away."},
+ as:{city:"বৰপেটা",state:"অসম, ভাৰত",search:"সেৱা বিচাৰক, যেনে ‘প্লাম্বাৰ’",hero:"আপোনাৰ মহল্লাতেই বিশ্বাসী সহায়ক",heroSub:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, চাফাই আৰু অধিক – আপোনাৰ দুৱাৰমুখতে।",cats:"আপোনাৰ কি লাগে?",none:"কোনো সেৱা পোৱা নগ’ল।",spot:"বিশেষ",b1:"সাশ্ৰয়ী মূল্যত ঘৰৰ মেৰামতি",b1s:"ইলেক্ট্ৰিচিয়ান, প্লাম্বাৰ, কাৰপেন্টাৰ",b2:"আপোনাৰ দুৱাৰমুখলৈ পানীৰ কেন",b2s:"বিশুদ্ধ খোৱাপানী যোগান",b3:"আপোনাৰ দক্ষতা আছে? সেৱা তালিকাভুক্ত কৰক",b3s:"নিজৰ মহল্লাতে গ্ৰাহক পাওক",book:"বুক কৰক",join:"বিনামূলীয়াকৈ যোগ দিয়ক",pop:"জনপ্ৰিয় সেৱা",w1:"আপোনাৰ এলেকাৰ স্থানীয় বিশেষজ্ঞ",w2:"আজি বা কাইলৈৰ বাবে বুক কৰক",w3:"অসমীয়া আৰু ইংৰাজী সহায়",n1:"হোম",n2:"সেৱা",n3:"সেৱা যোগ কৰক",n4:"সহায়",lbl:"EN",from:"আৰম্ভণি",visit:"দামৰ বাবে যোগাযোগ কৰক",name:"আপোনাৰ নাম",phone:"ফোন নম্বৰ",addr:"ঠিকনা / মহল্লা",when:"কেতিয়া লাগে?",today:"আজি",tomorrow:"কাইলৈ",anytime:"যিকোনো সময়",details:"অতিৰিক্ত তথ্য (ঐচ্ছিক)",send:"WhatsApp ত বুক কৰক",bookT:"বুক কৰক",joinT:"আপোনাৰ সেৱা তালিকাভুক্ত কৰক",skill:"আপুনি কি সেৱা দিয়ে?",area:"আপোনাৰ এলেকা",joinSend:"WhatsApp ত অনুৰোধ পঠিয়াওক",helpT:"সহায়",call:"কল কৰক",wa:"WhatsApp ত মেছেজ কৰক",req:"অনুগ্ৰহ কৰি নাম আৰু ১০ আখৰৰ ফোন নম্বৰ দিয়ক",setwa:"WhatsApp নম্বৰ এতিয়াও দিয়া হোৱা নাই",close:"বন্ধ কৰক",all:"সকলো সেৱা",seeall:"সকলো চাওক",emg:"জৰুৰীকালীন অৱস্থাত তৎক্ষণাত ১০৮ নম্বৰত কল কৰক।"}
 };
-var CATS=[["⚡","Electrician","ইলেক্ট্ৰিচিয়ান"],["🔧","Plumber","প্লাম্বাৰ"],["🧹","Home cleaning","ঘৰ চাফাই"],["🚰","Tank cleaning","টেংকী চাফাই"],["❄️","AC repair","এচি মেৰামতি"],["🎨","Painter","পেইণ্টাৰ"],["🪚","Carpenter","কাৰপেন্টাৰ"],["🐜","Pest control","পোক-পৰুৱা নিয়ন্ত্ৰণ"]];
+var CATS=[["⚡","Electrician","ইলেক্ট্ৰিচিয়ান"],["🔧","Plumber","প্লাম্বাৰ"],["🚑","Ambulance","এম্বুলেন্স"],["💊","Medicine Shop","ঔষধৰ দোকান"],["🩺","Physiotherapy","ফিজিঅথেৰাপী"],["🚰","Water Can Supply","পানীৰ কেন যোগান"],["🔥","LPG Gas Agency","এলপিজি গেছ এজেন্সী"],["🧱","Carpenter / Raj Mistri","কাৰপেন্টাৰ / ৰাজমিস্ত্ৰী"],["👷","Labour / Daily Wage Worker","শ্ৰমিক / দৈনিক মজুৰ"],["🛺","Driver / E-Rickshaw / Taxi","চালক / ই-ৰিক্সা / টেক্সি"],["🛠️","AC / Fridge / Washing Machine Repair","এচি / ফ্ৰীজ / ৱাশিং মেচিন মেৰামতি"],["📱","Mobile Repair Shop","মোবাইল মেৰামতি দোকান"],["💈","Salon / Barber","ছেলুন / নাপিত"],["🧹","House Cleaning / Maid","ঘৰ চাফাই / ঘৰুৱা সহায়িকা"],["🪜","Painter","পেইণ্টাৰ"]];
+var HOME=[0,1,2,3,5,7,13];
 /* [icon, English name, Assamese name, category index, starting price or 0] -- edit prices here */
-var POP=[["💡","Fan & light repair","পাংখা আৰু লাইট মেৰামতি",0,149],["🚿","Tap & leakage fix","কল আৰু লিকেজ মেৰামতি",1,199],["🛢️","Water tank cleaning","পানীৰ টেংকী চাফাই",3,499],["🏠","Full home deep cleaning","সম্পূৰ্ণ ঘৰ গভীৰ চাফাই",2,1499]];
+var POP=[["💡","Fan & light repair","পাংখা আৰু লাইট মেৰামতি",0,149],["🚿","Tap & leakage fix","কল আৰু লিকেজ মেৰামতি",1,199],["🚰","Water can supply","পানীৰ কেন যোগান",5,0],["🧹","House cleaning / maid","ঘৰ চাফাই / ঘৰুৱা সহায়িকা",13,0]];
 var cur={mode:"",svc:0};
+var view=0;
 function T(k){return S[lang][k]}
 function ix(){return lang==="as"?2:1}
 function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("show")},2400)}
@@ -130,14 +147,16 @@ function render(){
   document.querySelectorAll("[data-ph]").forEach(function(e){e.placeholder=T(e.getAttribute("data-ph"))});
   document.getElementById("lang").textContent=T("lbl");
   var i=ix();
-  document.getElementById("grid").innerHTML=CATS.map(function(c,n){return '<button class="cat" data-n="'+(c[1]+" "+c[2]).toLowerCase()+'" onclick="openSheet(\'book\','+n+')"><em>'+c[0]+'</em>'+c[i]+'</button>'}).join("");
+  document.getElementById("grid").innerHTML=HOME.map(function(n){return '<button class="cat" onclick="openSheet(\'book\','+n+')"><em>'+CATS[n][0]+'</em>'+CATS[n][i]+'</button>'}).join("")+'<button class="cat" onclick="go(1)"><em>➕</em>'+T("seeall")+'</button>';
+  document.getElementById("list").innerHTML=CATS.map(function(c,n){return '<button class="li" data-n="'+(c[1]+" "+c[2]).toLowerCase()+'" onclick="openSheet(\'book\','+n+')"><b class="num">'+(n+1)+'</b><em>'+c[0]+'</em><span>'+c[i]+'</span><u>›</u></button>'}).join("");
   document.getElementById("pop").innerHTML=POP.map(function(p){return '<button class="card" onclick="openSheet(\'book\','+p[3]+')"><div class="im">'+p[0]+'</div><div class="t"><b>'+p[i]+'</b><small>'+(p[4]?T("from")+' ₹'+p[4].toLocaleString("en-IN"):T("visit"))+'</small></div></button>'}).join("");
   filter();
   if(cur.mode)renderSheet();
 }
 function filter(){
   var q=document.getElementById("q").value.trim().toLowerCase(),n=0;
-  document.querySelectorAll(".cat").forEach(function(b){var ok=!q||b.getAttribute("data-n").indexOf(q)>-1;b.style.display=ok?"":"none";if(ok)n++});
+  if(q&&view!==1)show(1);
+  document.querySelectorAll(".li").forEach(function(b){var ok=!q||b.getAttribute("data-n").indexOf(q)>-1;b.style.display=ok?"":"none";if(ok)n++});
   document.getElementById("empty").style.display=n?"none":"block";
 }
 function toggleLang(){lang=lang==="en"?"as":"en";render()}
@@ -145,7 +164,7 @@ function opts(sel){return CATS.map(function(c,n){return '<option value="'+n+'"'+
 function renderSheet(){
   var h='<button class="x" onclick="closeSheet()" aria-label="'+T("close")+'">✕</button>';
   if(cur.mode==="book"){
-    h+='<h4>'+T("bookT")+'</h4><label>'+T("cats")+'</label>'
+    h+='<h4>'+T("bookT")+'</h4>'+(cur.svc===2?'<a class="go alt" href="tel:108" style="margin:0 0 4px;background:#c62828">🚑 '+T("emg")+'</a>':'')+'<label>'+T("cats")+'</label>'
      +'<select class="f" id="f_s">'+opts(cur.svc)+'</select>'
      +'<label>'+T("name")+'</label><input class="f" id="f_n" autocomplete="name">'
      +'<label>'+T("phone")+'</label><input class="f" id="f_p" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national">'
@@ -166,7 +185,7 @@ function renderSheet(){
   document.getElementById("sheet").innerHTML=h;
 }
 function openSheet(m,s){cur={mode:m,svc:s||0};renderSheet();document.getElementById("bg").style.display="block";document.getElementById("sheet").style.display="block"}
-function closeSheet(){cur.mode="";document.getElementById("bg").style.display="none";document.getElementById("sheet").style.display="none";setNav(0)}
+function closeSheet(){cur.mode="";document.getElementById("bg").style.display="none";document.getElementById("sheet").style.display="none";setNav(view)}
 function waLink(msg){return "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg)}
 function v(id){return (document.getElementById(id).value||"").trim()}
 function submitForm(){
@@ -179,12 +198,10 @@ function submitForm(){
   window.open(waLink(m),"_blank");
 }
 function setNav(i){for(var k=0;k<4;k++)document.getElementById("n"+k).classList.toggle("on",k===i)}
+function show(n){view=n;document.getElementById("home").style.display=n?"none":"";document.getElementById("page2").style.display=n?"":"none";setNav(n);window.scrollTo(0,0)}
 function go(i){
-  setNav(i);
-  if(i===0)window.scrollTo({top:0,behavior:"smooth"});
-  else if(i===1)document.getElementById("svc").scrollIntoView({behavior:"smooth"});
-  else if(i===2)openSheet("join");
-  else openSheet("help");
+  if(i<2){show(i);if(i===0){document.getElementById("q").value="";filter()}}
+  else{setNav(i);openSheet(i===2?"join":"help")}
 }
 render();
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
